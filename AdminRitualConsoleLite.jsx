@@ -1,0 +1,1 @@
+// AdminRitualConsoleLite.jsx - generated for Farpy MVP

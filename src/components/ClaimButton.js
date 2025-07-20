@@ -1,0 +1,1 @@
+content of ClaimButton.js

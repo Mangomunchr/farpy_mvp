@@ -1,0 +1,15 @@
+
+.vault-weather-monsoon {
+  animation: rainPulse 1.2s infinite;
+}
+.vault-weather-heatwave {
+  animation: heatGlow 1s infinite alternate;
+}
+@keyframes rainPulse {
+  0% { background-color: rgba(0,255,200,0.1); }
+  100% { background-color: rgba(0,255,200,0.3); }
+}
+@keyframes heatGlow {
+  0% { box-shadow: 0 0 10px #ff6600; }
+  100% { box-shadow: 0 0 20px #ff3300; }
+}

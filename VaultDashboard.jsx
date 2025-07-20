@@ -1,0 +1,1 @@
+// VaultDashboard.jsx - generated for Farpy MVP
