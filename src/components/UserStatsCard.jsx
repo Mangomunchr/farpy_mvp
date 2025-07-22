@@ -1,16 +1,11 @@
-
 import React from 'react';
 
-function UserStatsCard({ xp, level, uptime, jobsCompleted }) {
+export default function UserStatsCard({ xp, beans }) {
   return (
-    <div className="bg-zinc-900 p-4 rounded-xl text-white border border-zinc-700 text-sm">
-      <div className="font-bold mb-2">📊 User Stats</div>
-      <div>🧠 XP: {xp}</div>
-      <div>🏅 Level: {level}</div>
-      <div>⏱ Uptime: {uptime}%</div>
-      <div>📦 Jobs Completed: {jobsCompleted}</div>
+    <div className="border border-noxo-accent p-6 rounded-xl w-full">
+      <h2 className="text-lg font-bold mb-2">🙋‍♂️ Your Stats</h2>
+      <p className="text-noxo-primary text-sm">⚡ XP: {xp}</p>
+      <p className="text-noxo-primary text-sm">🫘 CoolBeans™: {beans}</p>
     </div>
   );
 }
-
-export default UserStatsCard;

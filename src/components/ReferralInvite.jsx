@@ -1,0 +1,1 @@
+<div>📨 Invite your friends and earn XP (Coming Soon)</div>

@@ -1,21 +1,21 @@
+import React, { useState, useEffect } from 'react';
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { app } from "../config/firebase";
 
-import React from 'react';
-
-function XPTracker({ xp, level, rankTitle }) {
-  const progress = Math.min((xp % 1000) / 1000 * 100, 100); // XP bar caps at 1000 for each level
-
+export default function XPTracker() {
+  const [xp, setXP] = useState(0);
+  useEffect(() => {
+    const fetchXP = async () => {
+      const user = getAuth(app).currentUser;
+      if (user) {
+        const snap = await getDoc(doc(getFirestore(app), "users", user.uid));
+        if (snap.exists()) setXP(snap.data().xp || 0);
+      }
+    };
+    fetchXP();
+  }, []);
   return (
-    <div className="w-full bg-zinc-800 rounded-xl p-3 text-sm">
-      <div className="mb-2 text-zinc-300 font-semibold">{rankTitle} — Level {level}</div>
-      <div className="w-full bg-zinc-700 h-4 rounded-lg overflow-hidden">
-        <div
-          className="h-full bg-green-500 transition-all duration-500"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-      <div className="text-right mt-1 text-zinc-400">{xp} XP</div>
-    </div>
+    <p className="text-sm text-noxo-primary mt-2">⚡ XP: {xp}</p>
   );
 }
-
-export default XPTracker;

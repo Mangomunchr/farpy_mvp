@@ -1,24 +1,18 @@
+import FarpyLayout from "./components/FarpyLayout";
+import VaultBlessingBanner from "./components/VaultBlessingBanner";
+import ChaosTokenReveal from "./components/ChaosTokenReveal";
+import LiveLeaderboard from "./components/LiveLeaderboard";
+import FarpyDashboard from "./components/FarpyDashboard";
+import FounderGate from "./components/FounderGate";
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Vault from './pages/Vault';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import NodeMonk from './pages/NodeMonk';
-
-function App() {
+export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/vault" element={<Vault />} />
-        <Route path="/nodemonk" element={<NodeMonk />} />
-      </Routes>
-    </Router>
+    <FarpyLayout>
+      <VaultBlessingBanner />
+      <ChaosTokenReveal />
+      <LiveLeaderboard />
+      <FarpyDashboard />
+      <FounderGate />
+    </FarpyLayout>
   );
 }
-
-export default App;

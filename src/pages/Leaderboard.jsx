@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+const db = getFirestore();
 
 const Leaderboard = () => {
-  const [entries, setEntries] = useState([]);
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    // Placeholder: pretend we're fetching leaderboard from backend
-    const data = [
-      { name: "MonkOne", xp: 1250 },
-      { name: "RenderZ", xp: 1000 },
-      { name: "GlowKid", xp: 750 },
-    ];
-    setEntries(data);
+    const fetchData = async () => {
+      const snap = await getDocs(collection(db, 'xp'));
+      const data = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
+      const sorted = data.sort((a, b) => b.value - a.value);
+      setRows(sorted);
+    };
+    fetchData();
   }, []);
 
   return (
-    <div className="p-6 max-w-xl mx-auto text-white">
-      <h1 className="text-3xl font-bold mb-4">🏆 Leaderboard</h1>
-      <ul className="space-y-2">
-        {entries.map((entry, i) => (
-          <li key={i} className="bg-gray-800 p-3 rounded flex justify-between border border-gray-700">
-            <span>{i + 1}. {entry.name}</span>
-            <span>{entry.xp} XP</span>
-          </li>
+    <div className="p-4 text-noxo-primary text-sm">
+      <h1 className="text-xl font-bold">🏆 Leaderboard</h1>
+      <ol className="list-decimal ml-6 mt-2 space-y-1">
+        {rows.map((r, i) => (
+          <li key={i}>{r.uid.substring(0, 6)}... — {r.value} XP</li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };

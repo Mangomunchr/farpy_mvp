@@ -1,0 +1,1 @@
+<div>📈 Vault earnings graph (Coming Soon)</div>

@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import VaultStatsCard from '../components/VaultStatsCard';
+import ClaimRewardsButton from '../components/ClaimRewardsButton';
+import MangoPoolMeter from '../components/MangoPoolMeter';
+import VaultActivityLog from '../components/VaultActivityLog';
+import ChaosWarningBanner from '../components/ChaosWarningBanner';
 
-const Vault = () => {
-  const [vault, setVault] = useState(0);
-
-  useEffect(() => {
-    const fetchVault = async () => {
-      const res = await axios.get('/api/vault');
-      setVault(res.data.earnings);
-    };
-    fetchVault();
-    const interval = setInterval(fetchVault, 3000);
-    return () => clearInterval(interval);
-  }, []);
+export default function Vault() {
+  const currentMango = 12933.2;
+  const claimable = 143.78;
+  const logs = [
+    "NodeMonk47 claimed $23.91",
+    "Chaos Ritual drained 333 beans",
+    "Vault refilled by 1,000 CoolBeans"
+  ];
 
   return (
-    <div className="p-6 max-w-xl mx-auto text-center text-white">
-      <h1 className="text-4xl font-bold mb-4">💰 Vault Balance</h1>
-      <div className="text-5xl font-mono text-green-400 bg-black border-2 border-green-600 p-6 rounded-lg shadow-lg inline-block">
-        ${vault.toFixed(2)}
+    <div className="min-h-screen bg-black text-white px-6 py-10">
+      <h1 className="text-3xl font-bold text-noxo-primary mb-6">🏦 Vault Overview</h1>
+
+      <ChaosWarningBanner />
+
+      <div className="flex flex-col lg:flex-row gap-6 mb-10">
+        <VaultStatsCard mangoTotal={currentMango} />
+        <MangoPoolMeter mangoTotal={currentMango} />
+        <ClaimRewardsButton amount={claimable} />
       </div>
-      <p className="mt-4 text-gray-300">Every job adds value. NodeMonks feed here.</p>
+
+      <VaultActivityLog logs={logs} />
     </div>
   );
-};
-
-export default Vault;
+}

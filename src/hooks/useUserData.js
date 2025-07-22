@@ -1,22 +1,23 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { getFirestore, doc, onSnapshot } from "firebase/firestore";
+import { app } from "../firebase";
 
-export default function useUserData(id) {
-  const [user, setUser] = useState(null);
+const db = getFirestore(app);
 
-  const load = async () => {
-    const res = await axios.get(`http://localhost:7777/user/${id}`);
-    setUser(res.data);
-  };
-
-  const giveXP = async (delta = 50) => {
-    const res = await axios.post(`http://localhost:7777/user/${id}/xp`, { delta });
-    setUser(res.data);
-  };
+export default function useUserData(userId = "live-client") {
+  const [xp, setXp] = useState(0);
+  const [beans, setBeans] = useState(1000);
 
   useEffect(() => {
-    load();
-  }, []);
+    const unsub = onSnapshot(doc(db, "users", userId), (docSnap) => {
+      const data = docSnap.data();
+      if (data) {
+        setXp(data.xp || 0);
+        setBeans(data.beans || 1000);
+      }
+    });
+    return () => unsub();
+  }, [userId]);
 
-  return { user, giveXP };
+  return { xp, beans };
 }

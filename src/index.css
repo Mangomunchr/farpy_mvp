@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-farpy-background text-farpy-neon font-mono;
+}
+
+button {
+  @apply px-4 py-2 rounded border border-farpy-accent hover:bg-farpy-accent hover:text-black transition;
+}
+
+input, textarea {
+  @apply p-2 bg-black border border-farpy-accent text-farpy-neon w-full;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 90%;
+  }
+
+  button {
+    @apply text-sm px-2 py-1;
+  }
+}

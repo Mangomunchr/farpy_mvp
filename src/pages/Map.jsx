@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const Map = () => {
-  const [logs, setLogs] = useState([]);
+const dummyNodes = [
+  { id: '001', name: 'NodeMonk-X', role: 'monk', lat: 36.1, lng: -115.2 },
+  { id: '002', name: 'Rendar-Y', role: 'rendar', lat: 40.7, lng: -74.0 }
+];
 
-  useEffect(() => {
-    const fetchLogs = async () => {
-      const res = await axios.get('/api/job-log');
-      setLogs(res.data.slice().reverse());
-    };
-    fetchLogs();
-    const interval = setInterval(fetchLogs, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="p-6 max-w-5xl mx-auto text-white">
-      <h1 className="text-3xl font-bold mb-4">🧭 Grid Activity Log</h1>
-      <ul className="space-y-2 text-sm">
-        {logs.map((job, i) => (
-          <li key={i} className="bg-gray-800 p-3 rounded border border-gray-700">
-            <strong>{job.userType}</strong> @ {job.speed}x — {job.content} <span className="text-gray-400">[{new Date(job.timestamp).toLocaleTimeString()}]</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+const Map = () => (
+  <div className="p-4 text-noxo-primary">
+    <h1 className="text-xl font-bold mb-2">🗺️ NodeMap (Simplified)</h1>
+    <ul className="text-sm space-y-1">
+      {dummyNodes.map(n => (
+        <li key={n.id}>📍 {n.name} — {n.role.toUpperCase()} @ [{n.lat}, {n.lng}]</li>
+      ))}
+    </ul>
+  </div>
+);
 
 export default Map;

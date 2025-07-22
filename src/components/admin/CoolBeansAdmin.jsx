@@ -1,0 +1,1 @@
+<div>CoolBeans Admin</div>

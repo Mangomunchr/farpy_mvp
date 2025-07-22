@@ -1,14 +1,10 @@
-
 import React from 'react';
 
-function ConnectionStatusIndicator({ online }) {
+export default function ConnectionStatusIndicator({ isOnline }) {
   return (
-    <div className={`text-xs text-center px-3 py-1 rounded-full font-semibold ${
-      online ? 'bg-green-700 text-green-100' : 'bg-red-700 text-red-100'
-    }`}>
-      {online ? '🟢 Connected to Core' : '🔴 Disconnected'}
+    <div className="text-sm flex items-center space-x-2 mt-4">
+      <span className={`h-3 w-3 rounded-full ${isOnline ? 'bg-green-400' : 'bg-red-500'}`}></span>
+      <span>{isOnline ? 'Connected to Render Grid' : 'Disconnected from Grid'}</span>
     </div>
   );
 }
-
-export default ConnectionStatusIndicator;

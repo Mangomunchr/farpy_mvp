@@ -1,0 +1,1 @@
+// VaultCast Panel UI component stub
